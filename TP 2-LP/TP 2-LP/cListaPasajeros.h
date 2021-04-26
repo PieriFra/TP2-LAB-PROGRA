@@ -10,6 +10,7 @@ using namespace std;
 class cListaPasajeros
 {
 private:
+	//hola jose y eze
 	cPasajero **lista;
 	unsigned int n_pasajeros;
 	unsigned int tam;
