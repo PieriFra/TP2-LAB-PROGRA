@@ -17,11 +17,16 @@ bool cListaVagones::agregar_vagon(cVagon *vagon)
 {
 	/*El método tiene que lanzar una excepción en el caso de que el tren
 	supere su peso o largo máximo de vagones*/
-	
-	//FALTA AGG EXCEPCION
-
+	try
+	{
+		
+	}
+	catch (...)
+	{
+		cout << "No se puede agregar el vagon" << endl;
+	}
 	if (n_vagones < tam) //verfiamos que haya lugar
-		lista[n_vagones++] = vagon;//agregamos el pasajero al final de la lista
+		lista[n_vagones++] = vagon;//agregamos el vagon al final de la lista
 	else return false; //no se pudo agregar (preguntar si se puede poner una excepcion)
 
 	return true; //si se pudo agregar con normalidad

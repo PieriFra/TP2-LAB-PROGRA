@@ -40,7 +40,7 @@ void cVagon::SubirPasajero(cPasajero *pasajero)
 		int cant_covid = CantMax_Pasajeros* 25 / 100;
 		try
 		{
-			//comportamient normal: que no se supere la cantidad estipulada por protocolo
+			//comportamient0 normal: que no se supere la cantidad estipulada por protocolo
 			CantMax_Pasajeros < cant_covid;
 		}
 		catch (...)//comportamiento excepcional

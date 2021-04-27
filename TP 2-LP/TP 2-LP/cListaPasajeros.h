@@ -4,21 +4,23 @@
 #include <ctime>
 #include <iostream>
 #include "cPasajero.h"
+#define N 100
 
 using namespace std;
 
 class cListaPasajeros
 {
 private:
-	//hola jose y eze
 	cPasajero **lista;
 	unsigned int n_pasajeros;
 	unsigned int tam;
 public:
-	unsigned int get_n_pasajeros() { return n_pasajeros; }
-	cListaPasajeros(unsigned int  tam = 100);
+	cListaPasajeros(unsigned int  tam = N);
 	~cListaPasajeros() {};
-	void QuitarPasajero(cPasajero *pasajero);
-	bool AgregarPasajero(cPasajero *pasajero);
+	unsigned int get_n_pasajeros() { return n_pasajeros; }
+	void QuitarPasajero(cPasajero*pasajero);
+	bool AgregarPasajero(cPasajero*pasajero);
+	
+
 };
 

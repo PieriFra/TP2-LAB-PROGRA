@@ -37,3 +37,4 @@ bool cListaPasajeros::AgregarPasajero(cPasajero * pasajero)
 
 	return true; //si se pudo agregar con normalidad
 }
+

@@ -11,10 +11,10 @@ class cLocomotora
 private:
 	const unsigned int num_chapa;
 	unsigned int potencia;
-	float peso, peso_max, largo;
+	float peso, peso_max, largo, largo_max;
 public:
 	cLocomotora(const unsigned int num_chapa, unsigned int potencia, float peso, 
-		float peso_max, float largo);
+		float peso_max, float largo, float largo_max);
 	~cLocomotora() {};
 
 	void imprimir();
