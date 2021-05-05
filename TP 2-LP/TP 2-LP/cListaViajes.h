@@ -1,5 +1,6 @@
 #pragma once
-#define N 5
+#define _CRT_SECURE_NO_WARNINGS
+#define N  5
 #include <string.h>
 #include <time.h>
 #include <ctime>
@@ -10,13 +11,20 @@ using namespace std;
 
 class cListaViajes
 {
+	//atributos
 private:
 	cViaje **lista;
 	unsigned int tam;
-	unsigned int n_vagones;
+	unsigned int n_viajes;
 public:
-	cListaViajes(unsigned int tam = N); //verificar tamaño de la lista
-	~cListaViajes() {};
+	cListaViajes(unsigned int tam = N); //constructor
+	~cListaViajes(); //destructor
+
+	//metodos
+	bool AgregarViaje(cViaje*viaje);
+	void redimencionalizar();
+	string to_string();
+	void imprimir();
 
 };
 

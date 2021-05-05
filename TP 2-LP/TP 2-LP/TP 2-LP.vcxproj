@@ -123,28 +123,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cEstaciones.cpp" />
+    <ClCompile Include="cListaEstaciones.cpp" />
     <ClCompile Include="cListaPasajeros.cpp" />
     <ClCompile Include="cListaVagones.cpp" />
     <ClCompile Include="cListaViajes.cpp" />
     <ClCompile Include="cLocomotora.cpp" />
     <ClCompile Include="cPasajero.cpp" />
     <ClCompile Include="cRegistro.cpp" />
-    <ClCompile Include="cRegistros.cpp" />
+    <ClCompile Include="cListaRegistro.cpp" />
     <ClCompile Include="cTren.cpp" />
     <ClCompile Include="cVagon.cpp" />
     <ClCompile Include="cViaje.cpp" />
+    <ClCompile Include="Definiciones.cpp" />
+    <ClCompile Include="Funciones.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cEstaciones.h" />
+    <ClInclude Include="cListaEstaciones.h" />
     <ClInclude Include="cListaPasajeros.h" />
     <ClInclude Include="cListaVagones.h" />
     <ClInclude Include="cListaViajes.h" />
     <ClInclude Include="cLocomotora.h" />
     <ClInclude Include="cPasajero.h" />
     <ClInclude Include="cRegistro.h" />
-    <ClInclude Include="cRegistros.h" />
+    <ClInclude Include="cListaRegistro.h" />
     <ClInclude Include="cTren.h" />
     <ClInclude Include="cVagon.h" />
     <ClInclude Include="cViaje.h" />
+    <ClInclude Include="Definiciones.h" />
+    <ClInclude Include="Funciones.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

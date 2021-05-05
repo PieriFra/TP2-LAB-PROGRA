@@ -1,29 +1,35 @@
 #include "cVagon.h"
+#include <sstream>
 
-cVagon::cVagon(unsigned int ID, unsigned int CantMax_Pasajeros, float peso_vagon, 
-	float peso_pasajeros, float largo_vagon, cListaPasajeros lista_pasajeros): CantMax_Pasajeros(CantMax_Pasajeros)
+cVagon::cVagon(unsigned int ID, unsigned int CantMax_Pasajeros, float peso_vagon,
+	float peso_pasajeros, float largo_vagon, cListaPasajeros *lista_pasajeros) : CantMax_Pasajeros(CantMax_Pasajeros)
 {
 	this->ID = ID;
 	this->largo_vagon = largo_vagon;
 	this->peso_pasajeros = peso_pasajeros;
 	this->peso_vagon = peso_vagon;
-	this->lista_pasajeros = lista_pasajeros; //verficar que este bien!!!
+	this->lista_pasajeros = lista_pasajeros;
+
 }
 
-float cVagon::SumarPesos(float *peso_pasajeros, cPasajero lista_pasajeros[])
+void cVagon::SumarPesos()
 {
 	/*modificar el peso al total cada vez que un pasajero baja o sube*/
-	int tam = (sizeof(lista_pasajeros) / sizeof(lista_pasajeros[0]));
+
+	unsigned int n = lista_pasajeros->get_n_pasajeros();
+
 	float acum = 0;
-	for (int i = 0; i < tam; i++)
+	for (unsigned int i = 0; i < n; i++) //recorremos la lista de pasajeros
 	{
-		acum = acum + lista_pasajeros[i].peso;
+		if (lista_pasajeros->GetPasajero(i) == NULL) //verificamos que el ptr no seal nulo
+			return;
+		//accedemos a los pesos de los pasajeros de la lista y los sumamos
+		acum = acum + lista_pasajeros->GetPasajero(i)->get_peso();
 	}
-	peso_pasajeros = &acum;
-	return *peso_pasajeros; //pregunatar si asi esta bien!!!
+	set_PesoPasajeros(acum); //modificamos el valor del peso total de los pasajeros
 }
 
-void cVagon::SubirPasajero(cPasajero *pasajero)
+void cVagon::AgregarPasajero(cPasajero *pasajero)
 {
 	/*Además, para cumplir con los protocolos, la cantidad de pasajeros permitidos por vagón
 	se reduce a un 25% de la habitual por lo que cuando el vagón está completo y quiere
@@ -32,40 +38,72 @@ void cVagon::SubirPasajero(cPasajero *pasajero)
 	b) Un pasajero aleatorio del vagón es echado para que pueda subir el nuevo
 	pasajero.
 	c) El pasajero sube igual, rompiendo los protocolos de COVID.*/
+	//obtenemos el 25% de la capcidad maxima 
 
-	int opcion = 1 + rand() % (4 - 1); //generamos numeros aletorios entre 1 y 3
-	switch (opcion)
+	unsigned int cant_covid = CantMax_Pasajeros * 25 / 100;
+	if (lista_pasajeros->get_n_pasajeros() < cant_covid)
 	{
-	case 1: {
-		int cant_covid = CantMax_Pasajeros* 25 / 100;
-		try
-		{
-			//comportamient0 normal: que no se supere la cantidad estipulada por protocolo
-			CantMax_Pasajeros < cant_covid;
-		}
-		catch (...)//comportamiento excepcional
-		{
-			cout << "La capcidad del vagon esta completa, el pasajero no puede abordar" << endl;
-		}
-		break; }
-	case 2: {
-		lista_pasajeros.QuitarPasajero(pasajero);
-		break; }
-	case 3: {
-		lista_pasajeros.AgregarPasajero(pasajero);
-		break; }
+		(lista_pasajeros)->AgregarPasajero(pasajero); //Se sube un pasajero al vagon de manera normal
+		SumarPesos(); //modifico el peso total de los pasajeros
 	}
+	else
+	{
+		//en caso de que el vagon este lleno 
+		unsigned int opcion = 1+ rand() % (4 - 1); //generamos numeros aletorios entre 1 y 3
+		
+		switch (opcion)
+		{ 
+		case 1: 
+		{
+			throw new exception("La capacidad del vagon esta completa, el pasajero no puede abordar.");
+				break;  }
+		case 2: {
+			(lista_pasajeros)->QuitarPasajeroAleatorio(pasajero); //echa un pasajero aletorio
+			SumarPesos(); //modifico el peso total de los pasajeros
+			break; }
+		case 3: {
+			(lista_pasajeros)->AgregarPasajero(pasajero);//sube al pasajero de todos modos, rompiendo con los protocolos
+			SumarPesos(); //modifico el peso total de los pasajeros
+			break; }
+		}
 
+	}
+	
+	
 }
 
-void cVagon::imprimir()
+void cVagon::EcharPasajerosPesados()
 {
-	
+	lista_pasajeros->OrdenarLista(); //ordenamos la lista de mayor a menos segun los pesos
+	//verifiacamos que haya mas de tres pasajeros en la lista
+	if (lista_pasajeros->n_pasajeros < 3) 
+		return;
+	//nos quedamos con las tres primeras posiciones de la lista, que son los tres pasajeros mas pesados
+	for (int i = 0; i < 3; i++) 
+	{  //los quitamos y eleminamos de la lista
+		lista_pasajeros->EliminarPasajero(lista_pasajeros->GetPasajero(i));
+	}
 }
 
 string cVagon::to_string()
 {
-	return string();
+	/*Este metodo convierte todo los atributos de la clase a un tipo de dato string*/
+	stringstream sv; /*creamos un buffer para concatenar todos los atributos de la clase*/
+	sv << "ID: " << ID << endl;
+	sv << "Peso Vagon: " << peso_vagon << endl;
+	sv << "Largo Vagon: " << largo_vagon << endl;
+	sv << "Cantidad Maxima de Pasajeros: " << CantMax_Pasajeros << endl;
+	sv << "Peso Pasajeros: " << peso_pasajeros << endl;
+	if (lista_pasajeros != NULL)
+		sv <<endl<< lista_pasajeros->to_string() << endl;
+	
+	return sv.str();
 }
+
+void cVagon::imprimir()
+{
+	cout << to_string() << endl;
+}
+
 
 

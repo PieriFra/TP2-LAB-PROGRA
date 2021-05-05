@@ -1,5 +1,7 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <string.h>
+#include <exception>
 #include <time.h>
 #include <ctime>
 #include <iostream>
@@ -9,23 +11,32 @@
 using namespace std;
 
 class cVagon
-{
+{//atributos
 private:
 	unsigned int ID;
 	const unsigned int CantMax_Pasajeros;
 	float peso_vagon, peso_pasajeros, largo_vagon;
-	cListaPasajeros lista_pasajeros; //ver si esta bien!!
+	
 public:
-
+	cListaPasajeros *lista_pasajeros;
+	//constructor
 	cVagon(unsigned int ID, unsigned int CantMax_Pasajeros, float peso_vagon, float peso_pasajeros,
-		float largo_vagon, cListaPasajeros lista_pasajeros);
-	~cVagon() {};
+		float largo_vagon, cListaPasajeros *lista_pasajeros);
+	~cVagon() {};//Destructor
 
-	float SumarPesos(float *peso_pasajeros, cPasajero lista_pasajeros[]);
-	void SubirPasajero(cPasajero *pasajero);
+	//metodos
+	void SumarPesos(); 
+	void AgregarPasajero(cPasajero *pasajero);
 
 	unsigned int GetCantMaxPasajeros() { return CantMax_Pasajeros; }
 	unsigned int get_id() { return ID; }
+	void set_PesoPasajeros(float peso_pasajeros) { this->peso_pasajeros = peso_pasajeros; }
+	float get_PesoVagon() { return peso_vagon; }
+	float get_PesoPasajeros() { return peso_pasajeros; }
+	float get_LargoVagon() { return largo_vagon; }
+
+	void EcharPasajerosPesados();
+
 	void imprimir();
 	string to_string();
 };

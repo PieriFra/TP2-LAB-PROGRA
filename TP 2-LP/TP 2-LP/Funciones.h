@@ -1,12 +1,20 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-#include <time.h>
-#include <ctime>
 #include <iostream>
-#include "cVagon.h"
-
+#include "Definiciones.h"
+#include "cPasajero.h"
+#include "cListaVagones.h"
+#include "cListaEstaciones.h"
+#include "cListaRegistro.h"
+#include "cRegistro.h"
+#include "cTren.h"
 using namespace std;
 
-void excep_SubirPasajero(cVagon vagon);
-void EcharPasajero(cVagon *vagon);
-
+int menu();
+eEstacion EstacionDestino();
+cPasajero *CargarPasajero(eEstacion EstacionOrigen);
+void SubirPasajero(cTren *Tren, eEstacion EstacionActual, cListaRegistro *Registros);
+void BajarPasajero(cListaVagones *ListaVagones, eEstacion EstacionActual);
