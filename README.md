@@ -74,7 +74,5 @@ This project put into practice:
 - Class design with UML
 - Exception handling in C++
 - Inheritance, static attributes, and friend classes
-
-Object-oriented simulation
-
-Contact tracing logic using data structures
+- Object-oriented simulation
+- Contact tracing logic using data structures
